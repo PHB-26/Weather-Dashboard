@@ -97,36 +97,27 @@ async function searchCity() {
 
 function currentLocation() {
 
-    navigator.geolocation.getCurrentPosition(async (position) => {
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by this browser.");
+        return;
+    }
 
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
+    navigator.geolocation.getCurrentPosition(
 
-        try {
+        function (position) {
 
-            const response = await fetch(
-                `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}`
-            );
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
 
-            const data = await response.json();
-
-            const city =
-                data.results && data.results.length
-                    ? data.results[0].name
-                    : "Current Location";
-
-            getWeather(lat, lon, city);
-
-        } catch (err) {
-            console.error(err);
             getWeather(lat, lon, "Current Location");
+
+        },
+
+        function () {
+            alert("Please allow location access.");
         }
 
-    }, (err) => {
-        console.error(err);
-        alert("Please allow location access.");
-    });
-
+    );
 }
 
 searchBtn.addEventListener("click", searchCity);
