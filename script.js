@@ -97,47 +97,36 @@ async function searchCity() {
 
 function currentLocation() {
 
-    if (!navigator.geolocation) {
-        alert("Geolocation is not supported by your browser.");
-        return;
-    }
+    navigator.geolocation.getCurrentPosition(async (position) => {
 
-    navigator.geolocation.getCurrentPosition(
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
 
-        async function (position) {
+        try {
 
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
+            const response = await fetch(
+                `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}`
+            );
 
-            try {
+            const data = await response.json();
 
-                const response = await fetch(
-                    `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}`
-                );
+            const city =
+                data.results && data.results.length
+                    ? data.results[0].name
+                    : "Current Location";
 
-                const data = await response.json();
+            getWeather(lat, lon, city);
 
-                let city = "Current Location";
-
-                if (data.results && data.results.length > 0) {
-                    city = data.results[0].name;
-                }
-
-                getWeather(lat, lon, city);
-
-            } catch (error) {
-                console.error(error);
-                getWeather(lat, lon, "Current Location");
-            }
-
-        },
-
-        function (error) {
-            console.error(error);
-            alert("Please allow location access.");
+        } catch (err) {
+            console.error(err);
+            getWeather(lat, lon, "Current Location");
         }
 
-    );
+    }, (err) => {
+        console.error(err);
+        alert("Please allow location access.");
+    });
+
 }
 
 searchBtn.addEventListener("click", searchCity);
