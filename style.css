@@ -1,4 +1,4 @@
-/* Reset */
+
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +24,6 @@ body {
     color: white;
 }
 
-/* Header */
 
 header {
     display: flex;
@@ -45,7 +44,7 @@ header h1 {
     cursor: pointer;
 }
 
-/* Search */
+
 
 .search-section {
     display: flex;
@@ -75,7 +74,7 @@ header h1 {
     background: #0d47a1;
 }
 
-/* Loading */
+
 
 .hidden {
     display: none;
@@ -102,7 +101,7 @@ header h1 {
     }
 }
 
-/* Current Weather */
+
 
 .city-details {
     text-align: center;
@@ -129,7 +128,7 @@ header h1 {
     width: 120px;
 }
 
-/* Cards */
+
 
 .weather-cards {
     display: grid;
@@ -154,7 +153,7 @@ header h1 {
     font-size: 18px;
 }
 
-/* Forecast */
+
 
 .forecast {
     margin-top: 40px;
@@ -182,7 +181,7 @@ header h1 {
     margin: 10px 0;
 }
 
-/* Error */
+
 
 .error {
     text-align: center;
@@ -190,7 +189,7 @@ header h1 {
     margin-bottom: 15px;
 }
 
-/* Dark Mode */
+
 
 body.dark {
     background: linear-gradient(135deg, #1e293b, #0f172a);
@@ -200,7 +199,7 @@ body.dark .container {
     background: rgba(0,0,0,0.3);
 }
 
-/* Mobile */
+
 
 @media (max-width: 768px) {
 
